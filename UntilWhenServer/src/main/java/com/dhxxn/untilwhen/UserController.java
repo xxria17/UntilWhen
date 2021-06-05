@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -59,7 +60,7 @@ public class UserController {
                 .orElseThrow(() -> new IllegalArgumentException());
 
         if (!passwordEncoder.matches(inputUser.get("password"), user.getPassword())) {
-            throw new IllegalArgumentException("잘못된 비밀번호 입니다.");
+            throw new IllegalStateException();
         }
         return jwtTokenProvider.createToken(user.getUsername(), user.getAdmin());
     }
@@ -70,4 +71,25 @@ public class UserController {
         userRepository.delete(userRepository.findById(id).get());
     }
 
+    //에러 처리
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<Integer> nullUser() {
+        return new ResponseEntity<>(100, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(IllegalStateException.class)
+    public ResponseEntity<Integer> wrongPw() {
+        return new ResponseEntity<>(200, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
+    public ResponseEntity<Integer> existingUser() {
+        return new ResponseEntity<>(300, HttpStatus.NOT_FOUND);
+    }
+
+    /*
+    가입되지 않은 사용자 :: 100
+    잘못된 비밀번호 :: 200
+    이미 있는 유저 :: 300
+     */
 }
