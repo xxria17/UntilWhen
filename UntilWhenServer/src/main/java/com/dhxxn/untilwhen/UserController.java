@@ -2,6 +2,8 @@ package com.dhxxn.untilwhen;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,8 +31,14 @@ public class UserController {
 
     // 아이디값에 해당하는 회원 정보 조회
     @GetMapping("/{id}")
-    public Optional<User> findById(@PathVariable Integer id) {
+    public Optional<User> findById(@PathVariable Long id) {
         return userRepository.findById(id);
+    }
+
+    // 이름으로 회원 정보 조회
+    @GetMapping("/{name}")
+    public Optional<User> findByName(@PathVariable String name) {
+        return userRepository.findByName(name);
     }
 
     // 회원가입
@@ -48,7 +56,7 @@ public class UserController {
     @PostMapping("/login")
     public String login(@RequestBody Map<String, String> inputUser) {
         User user = userRepository.findByName(inputUser.get("name"))
-                .orElseThrow(() -> new IllegalArgumentException("가입되지 않은 회원입니다"));
+                .orElseThrow(() -> new IllegalArgumentException());
 
         if (!passwordEncoder.matches(inputUser.get("password"), user.getPassword())) {
             throw new IllegalArgumentException("잘못된 비밀번호 입니다.");
@@ -58,7 +66,8 @@ public class UserController {
 
     // 회원 탈퇴
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Integer id) {
+    public void delete(@PathVariable Long id) {
         userRepository.delete(userRepository.findById(id).get());
     }
+
 }
