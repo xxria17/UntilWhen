@@ -1,34 +1,20 @@
 package com.dhxxn.untilwhen;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
+@RequiredArgsConstructor
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
 
-    public List<User> findAll() {
-        List<User> users = new ArrayList<>();
-        userRepository.findAll().forEach(e -> users.add(e));
-        return users;
-    }
-
-    public Optional<User> findById(Integer id) {
-        Optional<User> users = userRepository.findById(id);
-        return users;
-    }
-
-    public void delete(Integer id) {
-        userRepository.deleteById(id);
-    }
-
-    public User signUp(User user) {
-        userRepository.save(user);
-        return user;
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return userRepository.findByName(username).orElseThrow(() -> new UsernameNotFoundException("사용자를 찾을 수 없습니다."));
     }
 }
