@@ -3,8 +3,9 @@ package com.dhxxn.untilwhenaos.model
 import java.util.*
 
 data class Dday(
-    val id : Integer,
-    val ddayDate : Date,
-    val startDate : Date,
-    val userId : String
+    var id : Int = 0,
+    var finishDate : Date? = null,
+    var startDate : Date? = null,
+    var userId : String? = "",
+    var content : String? = ""
 )
