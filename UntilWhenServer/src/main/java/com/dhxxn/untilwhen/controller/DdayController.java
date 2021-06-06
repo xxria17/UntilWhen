@@ -1,10 +1,15 @@
 package com.dhxxn.untilwhen.controller;
 
 import com.dhxxn.untilwhen.model.Dday;
+import com.dhxxn.untilwhen.model.User;
+import com.dhxxn.untilwhen.repository.UserRepository;
 import com.dhxxn.untilwhen.service.DdayService;
+import com.dhxxn.untilwhen.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -12,16 +17,19 @@ import java.util.List;
 public class DdayController {
 
     private final DdayService ddayService;
+    private final UserRepository userService;
 
     @Autowired
-    public DdayController(DdayService ddayService) {
+    public DdayController(DdayService ddayService, UserRepository userService) {
         this.ddayService = ddayService;
+        this.userService = userService;
     }
+
 
     // 작성한 글 조회
     @GetMapping("/")
-    public List<Dday> getAllUsers(@PathVariable String name) {
-        return ddayService.findAllByUserName(name);
+    public List<Dday> getAllUsers(Principal principal) {
+        return ddayService.findAllByUserName(principal.getName());
     }
 
     @GetMapping("/{id}")
@@ -32,7 +40,9 @@ public class DdayController {
 
     // 게시글 생성
     @PostMapping("/")
-    public Dday addDday(@ModelAttribute Dday dday) {
+    public Dday addDday(Principal principal, @RequestBody Dday dday) {
+        User user = userService.findByName(principal.getName()).get();
+        dday.setUser(user);
         return ddayService.save(dday);
     }
 
