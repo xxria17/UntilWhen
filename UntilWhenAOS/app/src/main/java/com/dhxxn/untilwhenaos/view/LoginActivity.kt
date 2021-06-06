@@ -20,13 +20,15 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
     private lateinit var keyboardVisibilityUtils: KeyboardVisibilityUtils
-    private var viewModel = LoginViewModel(application)
+    private lateinit var viewModel : LoginViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
+        viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
         binding.login = this
+        binding.lifecycleOwner = this
 
         binding.loginBtn.setOnClickListener {
             val id = binding.editId.text.toString().trim()
