@@ -1,4 +1,4 @@
-package com.dhxxn.untilwhen;
+package com.dhxxn.untilwhen.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;

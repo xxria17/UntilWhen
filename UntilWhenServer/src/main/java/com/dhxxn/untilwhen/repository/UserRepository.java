@@ -1,5 +1,6 @@
-package com.dhxxn.untilwhen;
+package com.dhxxn.untilwhen.repository;
 
+import com.dhxxn.untilwhen.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

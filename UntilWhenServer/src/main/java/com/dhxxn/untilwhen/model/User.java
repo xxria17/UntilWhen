@@ -1,4 +1,4 @@
-package com.dhxxn.untilwhen;
+package com.dhxxn.untilwhen.model;
 
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;

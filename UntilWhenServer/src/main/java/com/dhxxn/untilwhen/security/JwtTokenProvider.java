@@ -1,4 +1,4 @@
-package com.dhxxn.untilwhen;
+package com.dhxxn.untilwhen.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;

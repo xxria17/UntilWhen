@@ -1,5 +1,6 @@
-package com.dhxxn.untilwhen;
+package com.dhxxn.untilwhen.service;
 
+import com.dhxxn.untilwhen.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
