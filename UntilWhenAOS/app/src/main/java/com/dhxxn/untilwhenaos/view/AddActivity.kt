@@ -19,6 +19,7 @@ class AddActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddBinding
     private lateinit var viewModel : AddViewModel
     var isToday : Boolean = true
+    private val format : DateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.KOREAN)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,7 +50,8 @@ class AddActivity : AppCompatActivity() {
             val finishDate = getSelectDate(binding.addDdayPicker)
 
             // 시작하는 날
-            var startDate = "2021-06-07"
+            val today = Date()
+            var startDate = format.format(today)
             if (!isToday) {
                 startDate = getSelectDate(binding.addStartPicker)
             }
@@ -60,11 +62,10 @@ class AddActivity : AppCompatActivity() {
     }
 
     private fun getSelectDate(datePicker: DatePicker): String {
-        var selectDate : Date
-        var setFinishDate : String = ""
-        val format : DateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.KOREAN)
-        var month : String = "${datePicker.month + 1}"
-        var day : String = "${datePicker.dayOfMonth}"
+        var setFinishDate = ""
+        var month = "${datePicker.month + 1}"
+        var day = "${datePicker.dayOfMonth}"
+
         if (day.length < 2) {
             day = "0$day"
         }
@@ -72,7 +73,6 @@ class AddActivity : AppCompatActivity() {
             month = "0$month"
         }
         setFinishDate = "${datePicker.year}-${month}-${day}"
-        selectDate = format.parse(setFinishDate)
 
         return setFinishDate
     }
