@@ -12,8 +12,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:textSize="18sp"
-        android:text="2021년 6월 15일" />
+        android:text="@string/detailFinishDate" />
 
     <TextView
         android:id="@+id/item_dday_content"
@@ -22,7 +23,8 @@
         android:textSize="18sp"
         android:textColor="@color/black"
         android:layout_marginLeft="10dp"
-        android:text="기말고사" />
+        android:layout_marginRight="10dp"
+        android:text="@string/detailContent" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -37,18 +39,40 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:progress="70"
+            android:layout_weight="9"
             android:layout_marginLeft="10dp"
-            android:layout_weight="1" />
+            android:layout_marginRight="15dp"
+            />
 
-        <TextView
-            android:id="@+id/item_dday_remainDate"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="right"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:layout_marginRight="10dp"
-            android:text="+167128일" />
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/item_dday_remainDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:text="+30"
+                android:ellipsize="middle"
+                android:singleLine="true" />
+
+            <TextView
+                android:id="@+id/item_dday_st"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:layout_marginRight="10dp"
+                android:text="일"/>
+
+        </LinearLayout>
+
+
     </LinearLayout>
 </LinearLayout>
