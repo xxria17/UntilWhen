@@ -20,4 +20,12 @@ interface API {
     //게시글 작성
     @POST("dday/")
     fun addDday(@Header("X-AUTH-TOKEN") token: String, @Body dday: Dday): Call<Dday>
+
+    //게시글 수정
+
+
+    //게시글 삭제
+    @DELETE("dday/{id}")
+    fun deleteDday(@Path("id") id : Int): Call<String>
+
 }
