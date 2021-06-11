@@ -1,32 +1,38 @@
 package com.dhxxn.untilwhen.controller;
 
+import com.dhxxn.untilwhen.model.Dday;
 import com.dhxxn.untilwhen.model.User;
-import com.dhxxn.untilwhen.service.UserService;
+import com.dhxxn.untilwhen.service.DdayService;
 import com.dhxxn.untilwhen.repository.UserRepository;
 import com.dhxxn.untilwhen.security.JwtTokenProvider;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-
-@RequiredArgsConstructor
 @RestController
 @RequestMapping("user")
 public class UserController {
-    @Autowired
-    UserService userService;
+
+    private final DdayService ddayService;
+
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
+
+    @Autowired
+    public UserController(DdayService ddayService, UserRepository userRepository, PasswordEncoder passwordEncoder, JwtTokenProvider jwtTokenProvider) {
+        this.ddayService = ddayService;
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.jwtTokenProvider = jwtTokenProvider;
+    }
 
     // 모든 회원 정보 조회
     @GetMapping("/")
@@ -36,7 +42,7 @@ public class UserController {
 
     // 아이디값에 해당하는 회원 정보 조회
     @GetMapping("/{id}")
-    public Optional<User> findById(@PathVariable Long id) {
+    public Optional<User> findById(@PathVariable Integer id) {
         return userRepository.findById(id);
     }
 
@@ -71,8 +77,13 @@ public class UserController {
 
     // 회원 탈퇴
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
-        userRepository.delete(userRepository.findById(id).get());
+    public void delete(@PathVariable Integer id) {
+        List<Dday> list = ddayService.findAllByUserName(userRepository.findById(id).get().getName());
+        list.forEach(element -> {
+            element.setUser(null);
+            ddayService.delete(element.getId());
+        });
+        userRepository.deleteById(id);
     }
 
     //에러 처리
