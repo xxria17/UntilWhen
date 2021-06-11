@@ -7,6 +7,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import com.dhxxn.untilwhenaos.App
 import com.dhxxn.untilwhenaos.KeyboardVisibilityUtils
 import com.dhxxn.untilwhenaos.R
 import com.dhxxn.untilwhenaos.databinding.ActivityLoginBinding
@@ -22,6 +23,8 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var keyboardVisibilityUtils: KeyboardVisibilityUtils
     private lateinit var viewModel : LoginViewModel
 
+    private var backKeyPressedTime : Long = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -29,6 +32,13 @@ class LoginActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
         binding.login = this
         binding.lifecycleOwner = this
+
+        if (!App.prefs.getString("id", "").equals("")) {
+            val id = App.prefs.getString("id", "")
+            val pw = App.prefs.getString("password", "")
+
+            viewModel.login(id, pw, this)
+        }
 
         binding.loginBtn.setOnClickListener {
             val id = binding.editId.text.toString().trim()
@@ -48,6 +58,20 @@ class LoginActivity : AppCompatActivity() {
                 smoothScrollTo(scrollX, scrollY + keyboardHeight)
             }
         })
+    }
+
+    override fun onBackPressed() {
+        if (System.currentTimeMillis() > backKeyPressedTime + 2000) {
+            backKeyPressedTime = System.currentTimeMillis()
+            Toast.makeText(this, "뒤로가기 버튼을 한 번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        if (System.currentTimeMillis() <= backKeyPressedTime + 2000) {
+            moveTaskToBack(true)
+            finish()
+            android.os.Process.killProcess(android.os.Process.myPid())
+        }
     }
 
 }

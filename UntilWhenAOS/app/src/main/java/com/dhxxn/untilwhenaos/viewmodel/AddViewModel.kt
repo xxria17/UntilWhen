@@ -6,6 +6,7 @@ import android.content.Intent
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
+import com.dhxxn.untilwhenaos.App
 import com.dhxxn.untilwhenaos.model.Dday
 import com.dhxxn.untilwhenaos.network.RetrofitBuilder
 import com.dhxxn.untilwhenaos.view.MainActivity
@@ -15,14 +16,37 @@ import retrofit2.Response
 
 class AddViewModel(application: Application): AndroidViewModel(application) {
 
-    fun createDday(finishDate : String, content: String, startDate: String, token : String, context: Context) {
+    fun createDday(finishDate : String, content: String, startDate: String, context: Context) {
         val dday = Dday(finishDate = finishDate, content = content, startDate = startDate)
+        val token = App.prefs.getString("token", "no token")
 
         RetrofitBuilder.api.addDday(token, dday).enqueue(object : Callback<Dday> {
             override fun onResponse(call: Call<Dday>, response: Response<Dday>) {
                 val code = response.code()
                 if (code == 200) {
                     Toast.makeText(context, "저장되었습니다!", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(context, MainActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                    context.startActivity(intent)
+                }
+            }
+
+            override fun onFailure(call: Call<Dday>, t: Throwable) {
+                Log.e("AddViewModel!!!", t.message.toString())
+            }
+
+        })
+    }
+
+    fun updateDDay(finishDate: String, content: String, startDate: String, context: Context, id :Int) {
+        val dday = Dday(finishDate = finishDate, content = content, startDate = startDate)
+        val token = App.prefs.getString("token", "no token")
+
+        RetrofitBuilder.api.updateDday(token, id, dday).enqueue(object : Callback<Dday> {
+            override fun onResponse(call: Call<Dday>, response: Response<Dday>) {
+                val code = response.code()
+                if (code == 200) {
+                    Toast.makeText(context, "수정되었습니다!", Toast.LENGTH_SHORT).show()
                     val intent = Intent(context, MainActivity::class.java)
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                     context.startActivity(intent)

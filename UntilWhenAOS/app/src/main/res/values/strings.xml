@@ -1,3 +1,40 @@
 <resources>
-    <string name="app_name">UntilWhenAOS</string>
+    <string name="app_name">언제양</string>
+
+    <!-- Main -->
+    <string name="addBtn">d-day add Button</string>
+
+    <!-- Detail -->
+    <string name="closeBtn">Detail screen close Button</string>
+    <string name="menuBtn">specific menu Button</string>
+    <string name="detailStart">시작 날짜</string>
+    <string name="detailStartDate">2021년 6월 9일</string>
+    <string name="detailFinish">끝나는 날짜</string>
+    <string name="detailFinishDate">2021년 8월 14일</string>
+    <string name="detailContent">정보처리기사 필기</string>
+    <string name="detailFromToday">오늘부터 기준일까지</string>
+    <string name="detailLeftDays">일 남았습니다.</string>
+
+    <!-- Login -->
+    <string name="logoImg">this is logo image</string>
+    <string name="id">아이디</string>
+    <string name="password">비밀번호</string>
+    <string name="login">로그인</string>
+    <string name="join">회원가입</string>
+
+    <!-- Join -->
+    <string name="joinCloseBtn">Close Join Screen</string>
+    <string name="joinTitle">회원가입이양</string>
+    <string name="passwordCheck">비밀번호 확인</string>
+    <string name="signUp">가입하기</string>
+
+    <!-- Add -->
+    <string name="AddCloseBtn">Close Add Screen</string>
+    <string name="saveBtn">저장</string>
+    <string name="when">언제양?</string>
+    <string name="what">무슨 날이양?</string>
+    <string name="startToday">오늘 시작이양?</string>
+    <string name="yes">응</string>
+    <string name="no">아니</string>
+    <string name="input">내용을 입력해주세요.</string>
 </resources>
