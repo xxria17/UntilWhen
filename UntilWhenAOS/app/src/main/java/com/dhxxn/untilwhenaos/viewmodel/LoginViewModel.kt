@@ -1,15 +1,14 @@
 package com.dhxxn.untilwhenaos.viewmodel
 
-import android.app.Activity
 import android.app.Application
 import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
-import com.dhxxn.untilwhenaos.MySharedPreferences
+import com.dhxxn.untilwhenaos.App
+import com.dhxxn.untilwhenaos.PreferenceUtil
 import com.dhxxn.untilwhenaos.network.RetrofitBuilder
-import com.dhxxn.untilwhenaos.view.LoginActivity
 import com.dhxxn.untilwhenaos.view.MainActivity
 import retrofit2.Call
 import retrofit2.Callback
@@ -25,12 +24,11 @@ class LoginViewModel(application: Application): AndroidViewModel(application) {
 
             RetrofitBuilder.api.getLoginResponse(user).enqueue(object : Callback<String> {
                 override fun onResponse(call: Call<String>, response: Response<String>) {
-                    Log.d("!!!!!!!!!!!!", "${response.body()}")
                     if (response.body() != null) {
                         val intent = Intent(context, MainActivity::class.java)
-                        intent.putExtra("token", response.body())
-                        Log.d("!!!!LOGIN", "token :: ${response.body()}")
-                        MySharedPreferences.setUserToken(context, response.message())
+                        App.prefs.setString("token", response.body()!!)
+                        App.prefs.setString("id", name)
+                        App.prefs.setString("password", password)
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                         context.startActivity(intent)
                     } else {

@@ -7,6 +7,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import com.dhxxn.untilwhenaos.App
 import com.dhxxn.untilwhenaos.KeyboardVisibilityUtils
 import com.dhxxn.untilwhenaos.R
 import com.dhxxn.untilwhenaos.databinding.ActivityLoginBinding
@@ -29,6 +30,13 @@ class LoginActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
         binding.login = this
         binding.lifecycleOwner = this
+
+        if (!App.prefs.getString("id", "").equals("")) {
+            val id = App.prefs.getString("id", "")
+            val pw = App.prefs.getString("password", "")
+
+            viewModel.login(id, pw, this)
+        }
 
         binding.loginBtn.setOnClickListener {
             val id = binding.editId.text.toString().trim()
