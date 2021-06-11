@@ -43,6 +43,7 @@ class LoginViewModel(application: Application): AndroidViewModel(application) {
                 }
 
                 override fun onFailure(call: Call<String>, t: Throwable) {
+                    Toast.makeText(context, "서버에 연결이 되지 않았습니다. 다시 시도해주세요!", Toast.LENGTH_SHORT).show()
                     Log.e("LoginActivity!!!", t.message.toString())
                 }
             })
