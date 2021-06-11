@@ -2,6 +2,7 @@ package com.dhxxn.untilwhenaos.adapter
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dhxxn.untilwhenaos.R
 import com.dhxxn.untilwhenaos.model.Dday
 import com.dhxxn.untilwhenaos.view.DetailActivity
+import kotlin.math.abs
 
 class DdayAdapter (private var list : MutableList<Dday>): RecyclerView.Adapter<DdayAdapter.ViewHolder>() {
     inner class ViewHolder(itemView: View?): RecyclerView.ViewHolder(itemView!!) {
@@ -20,10 +22,22 @@ class DdayAdapter (private var list : MutableList<Dday>): RecyclerView.Adapter<D
         var progressBar : ProgressBar = itemView!!.findViewById(R.id.item_dday_progressBar)
 
         fun bind(data : Dday, context: Context) {
-            //val current = (data.remain) -
+            val remainData = data.currentRemainDates
+
+            val total = abs(data.totalRemainDates)
+            val current = total - abs(data.currentRemainDates)
+
+            if (remainData > 0) {
+                remain.text = "+${data.currentRemainDates}"
+                val a = Math.pow(10.0, (remain.text.toString().substring(1).length+1).toDouble()).toInt()
+                progressBar.progress = (100 * a / 10).toInt()
+            } else {
+                remain.text = "${data.currentRemainDates}"
+                progressBar.progress = (100 * current / total).toInt()
+            }
             date.text = refactorDate(data.finishDate)
             content.text = data.content
-            //progressBar.progress = (current / remain) * 100
+
 
             itemView.setOnClickListener {
                 val intent = Intent(context, DetailActivity::class.java)
@@ -31,7 +45,7 @@ class DdayAdapter (private var list : MutableList<Dday>): RecyclerView.Adapter<D
                 intent.putExtra("content", data.content)
                 intent.putExtra("startDate", refactorDate(data.startDate))
                 intent.putExtra("finishDate", refactorDate(data.finishDate))
-                intent.putExtra("remain", data.remain)
+                intent.putExtra("remain", data.currentRemainDates)
                 context.startActivity(intent)
             }
         }

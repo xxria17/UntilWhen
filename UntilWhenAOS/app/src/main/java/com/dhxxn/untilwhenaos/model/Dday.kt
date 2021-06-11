@@ -5,6 +5,6 @@ data class Dday(
     var finishDate : String? = null,
     var startDate : String? = null,
     var content : String? = "",
-    var remain : Int? = 0,
-    var currentRemain : Int? = 0
+    var currentRemainDates : Long = 0,
+    var totalRemainDates : Long = 0
 )
