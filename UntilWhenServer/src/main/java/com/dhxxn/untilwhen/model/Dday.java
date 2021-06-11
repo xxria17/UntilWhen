@@ -1,5 +1,6 @@
 package com.dhxxn.untilwhen.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import javax.persistence.*;
@@ -18,10 +19,15 @@ public class Dday {
     private Integer id;
     @Column(nullable = false)
     private String content;
+
     @Column(nullable = false)
     private Date startDate;
+
     @Column(nullable = false)
     private Date finishDate;
+
+    private long currentRemainDates;
+    private long totalRemainDates;
 
     @ManyToOne(cascade = CascadeType.ALL)
     private User user;
