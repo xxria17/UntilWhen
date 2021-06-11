@@ -6,12 +6,22 @@ import retrofit2.Call
 import retrofit2.http.*
 
 interface API {
+
+    // 사용자 이름으로 아이디 받아오기
+    @GET("user/{name}")
+    fun getUserId(@Header("token") token: String, @Path("name") name: String): Call<User>
+
     //로그인
     @POST("user/login")
     fun getLoginResponse(@Body user : Map<String, String>): Call<String>
+
     //회원가입
     @POST("user/")
     fun getJoinResponse(@Body user: Map<String, String>): Call<User>
+
+    //회원탈퇴
+    @DELETE("user/{id}")
+    fun deleteUser(@Header("X-AUTH-TOKEN") token: String, @Path("id") id: Int): Call<Void>
 
     // 게시글 조회
     @GET("dday/")

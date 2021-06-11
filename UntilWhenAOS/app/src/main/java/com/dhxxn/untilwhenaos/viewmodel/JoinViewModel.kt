@@ -6,6 +6,7 @@ import android.content.Intent
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
+import com.dhxxn.untilwhenaos.App
 import com.dhxxn.untilwhenaos.model.User
 import com.dhxxn.untilwhenaos.network.RetrofitBuilder
 import com.dhxxn.untilwhenaos.view.LoginActivity
@@ -25,10 +26,15 @@ class JoinViewModel(application: Application): AndroidViewModel(application) {
             RetrofitBuilder.api.getJoinResponse(user).enqueue(object : Callback<User> {
                 override fun onResponse(call: Call<User>, response: Response<User>) {
                     Log.d("JoinActivity!!!", "response :: $response")
-                    val error = response.errorBody()!!.string()
-                    if (error == "300") {
-                        Toast.makeText(context, "이미 있는 아이디입니다.", Toast.LENGTH_SHORT).show()
+                    if (response.errorBody() != null) {
+                        val error = response.errorBody()!!.string()
+                        if (error == "300") {
+                            Toast.makeText(context, "이미 있는 아이디입니다.", Toast.LENGTH_SHORT).show()
+                        }
                     } else {
+                        App.prefs.setString("id", "")
+                        App.prefs.setString("password", "")
+                        Toast.makeText(context, "회원가입 되었습니다.", Toast.LENGTH_SHORT).show()
                         context.startActivity(Intent(context, LoginActivity::class.java))
                     }
                 }
