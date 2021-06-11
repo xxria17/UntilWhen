@@ -49,12 +49,13 @@ public class DdayController {
     //게시글 삭제
     @DeleteMapping("/{id}")
     public void deleteDday(@PathVariable Integer id) {
-        ddayService.delete(ddayService.findById(id));
+        ddayService.findById(id).setUser(null);
+        ddayService.delete(id);
     }
 
     // 게시글 수정
     @PutMapping("/{id}")
-    public Dday updateDday(@PathVariable Integer id, @ModelAttribute final Dday updates) {
+    public Dday updateDday(@PathVariable Integer id, @RequestBody Dday updates) {
         Dday dday = ddayService.findById(id);
         dday.setContent(updates.getContent());
         dday.setStartDate(updates.getStartDate());
