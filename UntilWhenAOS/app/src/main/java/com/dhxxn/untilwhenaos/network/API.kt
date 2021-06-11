@@ -22,10 +22,11 @@ interface API {
     fun addDday(@Header("X-AUTH-TOKEN") token: String, @Body dday: Dday): Call<Dday>
 
     //게시글 수정
-
+    @PUT("dday/{id}")
+    fun updateDday(@Header("X-AUTH-TOKEN") token: String, @Path("id") id : Int, @Body day : Dday): Call<Dday>
 
     //게시글 삭제
     @DELETE("dday/{id}")
-    fun deleteDday(@Path("id") id : Int): Call<String>
+    fun deleteDday(@Header("X-AUTH-TOKEN") token: String, @Path("id") id : Int): Call<Void>
 
 }

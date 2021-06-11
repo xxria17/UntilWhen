@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.DatePicker
+import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.dhxxn.untilwhenaos.R
@@ -33,7 +34,16 @@ class AddActivity : AppCompatActivity() {
             finish()
         }
 
-        val token = intent.getStringExtra("token") ?: ""
+        val id = intent.getIntExtra("id", 0)
+
+        if (id != 0) {
+            val content = intent.getStringExtra("content")
+            val startDate = intent.getStringExtra("startDate")
+
+            binding.addEditContent.setText(content, TextView.BufferType.EDITABLE)
+
+            binding.addSaveBtn.text = "수정"
+        }
 
         binding.addRadioGroup.setOnCheckedChangeListener { group, checkedId ->
             if (checkedId == R.id.add_today_radio) {
@@ -45,7 +55,6 @@ class AddActivity : AppCompatActivity() {
         }
 
         binding.addSaveBtn.setOnClickListener {
-
             // 끝나는 날
             val finishDate = getSelectDate(binding.addDdayPicker)
 
@@ -56,8 +65,12 @@ class AddActivity : AppCompatActivity() {
                 startDate = getSelectDate(binding.addStartPicker)
             }
 
+            if (binding.addSaveBtn.text.equals("저장")) {
+                viewModel.createDday(finishDate, binding.addEditContent.text.toString(), startDate, this)
+            } else {
+                viewModel.updateDDay(finishDate, binding.addEditContent.text.toString(), startDate, this, id)
+            }
 
-            viewModel.createDday(finishDate, binding.addEditContent.text.toString(), startDate, token, this)
         }
     }
 
