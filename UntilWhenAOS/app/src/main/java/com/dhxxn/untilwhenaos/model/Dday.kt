@@ -1,10 +1,10 @@
 package com.dhxxn.untilwhenaos.model
 
-import java.util.*
-
 data class Dday(
-    val id : Integer,
-    val ddayDate : Date,
-    val startDate : Date,
-    val userId : String
+    var id : Int = 0,
+    var finishDate : String? = null,
+    var startDate : String? = null,
+    var content : String? = "",
+    var currentRemainDates : Long = 0,
+    var totalRemainDates : Long = 0
 )

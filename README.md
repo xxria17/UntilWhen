@@ -7,17 +7,34 @@
 사용자가 특정 날짜에 관한 내용을 입력하면 현재 날짜와 비교하여 남은 날짜/지난 날짜를 계산해 화면에 보여주는 어플.
 
 ## 주요 기능
+**회원**
+- 회원 가입, 회원 탈퇴
+- 로그인, 로그아웃
+
+**게시글**
 - 현재 날짜와 비교할 기준 날짜 내용 추가
 - 저장했던 내용들 불러와 한 눈에 목록으로 보여주기
 - 저장했던 각 내용 삭제 및 수정
 
-## 화면
-<img width="224" alt="222" src="https://user-images.githubusercontent.com/41279544/119473949-a4052500-bd86-11eb-9e91-826e22290fc0.PNG"><img width="224" alt="222" src="https://user-images.githubusercontent.com/41279544/119473936-9f407100-bd86-11eb-9807-8eb8a8310a9e.PNG">
 
-<img width="224" alt="222" src="https://user-images.githubusercontent.com/41279544/119473943-a0719e00-bd86-11eb-97b2-f32d269e0f4f.PNG"><img width="224" alt="222" src="https://user-images.githubusercontent.com/41279544/119473945-a1a2cb00-bd86-11eb-8674-0ed38283adb4.PNG">
+## 실행화면
+<img width="224" alt="222" src="https://user-images.githubusercontent.com/41279544/121772655-a999a200-cbb1-11eb-81aa-754f218cebb5.jpg"><img width="224" alt="222" src="https://user-images.githubusercontent.com/41279544/121772663-b74f2780-cbb1-11eb-8ce2-683697473944.jpg"><img width="224" alt="222" src="https://user-images.githubusercontent.com/41279544/121772668-c0d88f80-cbb1-11eb-8afe-48fe60e8df8f.jpg"><img width="224" alt="222" src="https://user-images.githubusercontent.com/41279544/121772670-ccc45180-cbb1-11eb-9226-b1f98644f153.jpg">
 
 <br>
 
 ## 사용 언어
 - Android (Kotlin)
 - Server (Java Spring)
+
+## 사용 기술
+**서버**
+- MySQL
+- JPA
+- Spring Security
+
+
+**안드로이드**
+- Retrofit2
+- Coroutine
+- DataBinding
+- SharedPreferences
