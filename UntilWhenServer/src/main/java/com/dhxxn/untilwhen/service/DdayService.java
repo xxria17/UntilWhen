@@ -46,8 +46,8 @@ public class DdayService {
         long calCurrent = currentDate.getTime() - finishDate.getTime();
         long cal = 24*60*60*1000;
 
-        dday.setTotalRemainDates(calTotal / cal);
-        dday.setCurrentRemainDates(calCurrent / cal);
+        dday.setTotalRemainDates((calTotal / cal)+1);
+        dday.setCurrentRemainDates((calCurrent / cal)+1);
 
         return dday;
     }
