@@ -40,16 +40,10 @@ public class UserController {
         return userRepository.findAll();
     }
 
-    // 아이디값에 해당하는 회원 정보 조회
-    @GetMapping("/{id}")
-    public Optional<User> findById(@PathVariable Integer id) {
-        return userRepository.findById(id);
-    }
-
     // 이름으로 회원 정보 조회
     @GetMapping("/{name}")
-    public Optional<User> findByName(@PathVariable String name) {
-        return userRepository.findByName(name);
+    public User findByName(@PathVariable String name) {
+        return userRepository.findByName(name).get();
     }
 
     // 회원가입
