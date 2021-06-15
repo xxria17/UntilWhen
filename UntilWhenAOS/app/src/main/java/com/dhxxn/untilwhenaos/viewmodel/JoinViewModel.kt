@@ -35,7 +35,9 @@ class JoinViewModel(application: Application): AndroidViewModel(application) {
                         App.prefs.setString("id", "")
                         App.prefs.setString("password", "")
                         Toast.makeText(context, "회원가입 되었습니다.", Toast.LENGTH_SHORT).show()
-                        context.startActivity(Intent(context, LoginActivity::class.java))
+                        val intent = Intent(context, LoginActivity::class.java)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                        context.startActivity(intent)
                     }
                 }
 
@@ -45,6 +47,8 @@ class JoinViewModel(application: Application): AndroidViewModel(application) {
                 }
 
             })
+        } else {
+            return
         }
 
 

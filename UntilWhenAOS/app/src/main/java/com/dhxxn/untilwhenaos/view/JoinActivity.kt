@@ -1,6 +1,8 @@
 package com.dhxxn.untilwhenaos.view
 
+import android.content.DialogInterface
 import android.os.Bundle
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
@@ -28,11 +30,20 @@ class JoinActivity : AppCompatActivity() {
         }
 
         binding.joinBtn.setOnClickListener {
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("회원가입")
+            builder.setMessage("이렇게 회원가입을 진행할까요?")
+
             val id = binding.editNewId.text.toString().trim()
             val password = binding.editNewPw.text.toString().trim()
             val passwordCheck = binding.editPwCheck.text.toString().trim()
-            viewModel.join(id, password, passwordCheck, this)
-            finish()
+            builder.setPositiveButton("예") { dialog, which ->
+                viewModel.join(id, password, passwordCheck, this)
+            }
+            builder.setNegativeButton("아니오") { dialog, which ->
+                return@setNegativeButton
+            }
+            builder.show()
         }
 
         keyboardVisibilityUtils = KeyboardVisibilityUtils(window,

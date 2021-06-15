@@ -62,10 +62,16 @@ class DetailActivity : AppCompatActivity() {
             builder.setItems(list) { _, which ->
                 val selected = list[which]
                 if (selected.equals("수정")) {
-                    Toast.makeText(this, "수정을 선택하였습니다.", Toast.LENGTH_SHORT).show()
                     viewModel.update(this, id, startDate, finishDate, content)
                 } else if (selected.equals("삭제")) {
-                    viewModel.delete(this, id)
+                    val deleteBuilder = AlertDialog.Builder(this)
+                    deleteBuilder.setTitle("삭제")
+                    deleteBuilder.setMessage("이 내용을 삭제할까요?")
+                    deleteBuilder.setPositiveButton("예") { dialog, which ->
+                        viewModel.delete(this, id)
+                    }
+                    deleteBuilder.setNegativeButton("아니오") {dialog, which ->return@setNegativeButton}
+                   deleteBuilder.show()
                 }
             }
 

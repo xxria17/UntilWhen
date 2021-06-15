@@ -42,6 +42,7 @@ class MainActivity : AppCompatActivity() {
         binding.mainDdayList.layoutManager = LinearLayoutManager(this)
         val decoration = DividerItemDecoration(this, VERTICAL)
         binding.mainDdayList.addItemDecoration(decoration)
+        
 
         setUserId()
         viewModel.setInit(binding.mainDdayList)
@@ -57,16 +58,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.mainSettingBtn.setOnClickListener {
-            val list = arrayOf("로그아웃", "회원탈퇴")
-
-            val builder : AlertDialog.Builder = AlertDialog.Builder(this)
-            builder.setTitle("메뉴")
-            builder.setItems(list) { _, which ->
-                val selected = list[which]
-                checkAction(selected)
-            }
-
-            builder.show()
+            startActivity(Intent(this@MainActivity, UserInfoActivity::class.java))
         }
 
     }
@@ -81,55 +73,6 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<User>, t: Throwable) {
-                Log.e("MainActivity!!!", t.message.toString())
-            }
-
-        })
-    }
-
-    private fun checkAction(action : String) {
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle(" $action ")
-        builder.setMessage("$action 을(를) 하시겠습니까?")
-        builder.setPositiveButton("예", object : DialogInterface.OnClickListener {
-            override fun onClick(dialog: DialogInterface?, which: Int) {
-                if (action.equals("로그아웃")) {
-                    logout()
-                } else {
-                    deleteUser()
-                }
-            }
-
-        })
-        builder.setNegativeButton("아니오", object : DialogInterface.OnClickListener {
-            override fun onClick(dialog: DialogInterface?, which: Int) {
-                Toast.makeText(applicationContext, "취소하였습니다.", Toast.LENGTH_SHORT).show()
-            }
-
-        })
-        builder.show()
-    }
-
-    private fun logout() {
-        App.prefs.setString("token", "")
-        App.prefs.setString("id", "")
-        App.prefs.setString("password", "")
-        App.prefs.setString("userId", "")
-        val intent = Intent(this@MainActivity, LoginActivity::class.java)
-        Toast.makeText(this, "완료 되었습니다.", Toast.LENGTH_SHORT).show()
-        startActivity(intent)
-        finish()
-    }
-
-    private fun deleteUser() {
-        val token = App.prefs.getString("token", "")
-        val id = App.prefs.getString("userId", "")
-        RetrofitBuilder.api.deleteUser(token, id.toInt()).enqueue(object : Callback<Void> {
-            override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                logout()
-            }
-
-            override fun onFailure(call: Call<Void>, t: Throwable) {
                 Log.e("MainActivity!!!", t.message.toString())
             }
 
