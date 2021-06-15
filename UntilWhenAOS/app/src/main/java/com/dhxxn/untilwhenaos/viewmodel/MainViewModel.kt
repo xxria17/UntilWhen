@@ -5,6 +5,7 @@ import android.content.Context
 import androidx.lifecycle.AndroidViewModel
 import androidx.recyclerview.widget.RecyclerView
 import com.dhxxn.untilwhenaos.App
+import com.dhxxn.untilwhenaos.LoadingDialog
 import com.dhxxn.untilwhenaos.PreferenceUtil
 import com.dhxxn.untilwhenaos.adapter.DdayAdapter
 import com.dhxxn.untilwhenaos.model.Dday
@@ -18,7 +19,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun setInit(recyclerView: RecyclerView) {
         val token = App.prefs.getString("token", "no token")
+        val dialog = LoadingDialog(recyclerView.context)
         CoroutineScope(Dispatchers.Main).launch {
+            dialog.show()
             val list: ArrayList<Dday> = arrayListOf()
             val data = getDataByCoroutine(token)
             for (document in data) {
@@ -33,6 +36,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             }
             val adapter = DdayAdapter(list)
             recyclerView.adapter = adapter
+            dialog.dismiss()
         }
     }
 
