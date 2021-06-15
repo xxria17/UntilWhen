@@ -26,7 +26,6 @@ public class Dday {
     @Column(nullable = false)
     private Date finishDate;
 
-    private long currentRemainDates;
     private long totalRemainDates;
 
     @ManyToOne(cascade = CascadeType.ALL)
