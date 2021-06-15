@@ -1,11 +1,13 @@
 package com.dhxxn.untilwhenaos.view
 
+import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.DatePicker
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.dhxxn.untilwhenaos.R
@@ -65,12 +67,20 @@ class AddActivity : AppCompatActivity() {
                 startDate = getSelectDate(binding.addStartPicker)
             }
 
-            if (binding.addSaveBtn.text.equals("저장")) {
-                viewModel.createDday(finishDate, binding.addEditContent.text.toString(), startDate, this)
-            } else {
-                viewModel.updateDDay(finishDate, binding.addEditContent.text.toString(), startDate, this, id)
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("${binding.addSaveBtn.text}")
+            builder.setMessage("해당 내용을 ${binding.addSaveBtn.text}하시겠습니까?")
+            builder.setPositiveButton("예") { dialog, which ->
+                if (binding.addSaveBtn.text.equals("저장")) {
+                    viewModel.createDday(finishDate, binding.addEditContent.text.toString(), startDate, baseContext)
+                } else {
+                    viewModel.updateDDay(finishDate, binding.addEditContent.text.toString(), startDate, baseContext, id)
+                }
             }
-
+            builder.setNegativeButton("아니오") { dialog, which ->
+                return@setNegativeButton
+            }
+            builder.show()
         }
     }
 

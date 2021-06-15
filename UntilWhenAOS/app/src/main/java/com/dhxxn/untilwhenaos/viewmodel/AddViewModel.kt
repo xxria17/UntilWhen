@@ -26,7 +26,7 @@ class AddViewModel(application: Application): AndroidViewModel(application) {
                 if (code == 200) {
                     Toast.makeText(context, "저장되었습니다!", Toast.LENGTH_SHORT).show()
                     val intent = Intent(context, MainActivity::class.java)
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     context.startActivity(intent)
                 }
             }
@@ -48,7 +48,7 @@ class AddViewModel(application: Application): AndroidViewModel(application) {
                 if (code == 200) {
                     Toast.makeText(context, "수정되었습니다!", Toast.LENGTH_SHORT).show()
                     val intent = Intent(context, MainActivity::class.java)
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     context.startActivity(intent)
                 }
             }
