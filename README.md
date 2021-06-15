@@ -10,6 +10,7 @@
 **회원**
 - 회원 가입, 회원 탈퇴
 - 로그인, 로그아웃
+- 자동 로그인
 
 **게시글**
 - 현재 날짜와 비교할 기준 날짜 내용 추가
@@ -18,7 +19,10 @@
 
 
 ## 실행화면
-<img width="224" alt="222" src="https://user-images.githubusercontent.com/41279544/121772655-a999a200-cbb1-11eb-81aa-754f218cebb5.jpg"><img width="224" alt="222" src="https://user-images.githubusercontent.com/41279544/121772663-b74f2780-cbb1-11eb-8ce2-683697473944.jpg"><img width="224" alt="222" src="https://user-images.githubusercontent.com/41279544/121772668-c0d88f80-cbb1-11eb-8afe-48fe60e8df8f.jpg"><img width="224" alt="222" src="https://user-images.githubusercontent.com/41279544/121772670-ccc45180-cbb1-11eb-9226-b1f98644f153.jpg">
+<img width="224" alt="222" src="https://user-images.githubusercontent.com/41279544/121772655-a999a200-cbb1-11eb-81aa-754f218cebb5.jpg"><img width="224" alt="222" src="https://user-images.githubusercontent.com/41279544/121772663-b74f2780-cbb1-11eb-8ce2-683697473944.jpg">
+<img width="224" alt="222" src="https://user-images.githubusercontent.com/41279544/121772668-c0d88f80-cbb1-11eb-8afe-48fe60e8df8f.jpg"><img width="224" alt="222" src="https://user-images.githubusercontent.com/41279544/121772670-ccc45180-cbb1-11eb-9226-b1f98644f153.jpg">
+<img width="224" alt="222" src="https://user-images.githubusercontent.com/41279544/121796641-9e984d80-cc55-11eb-89b1-2f5a3adb6dbe.jpg">
+
 
 <br>
 
