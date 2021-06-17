@@ -1,5 +1,6 @@
 package com.dhxxn.untilwhenaos.view
 
+import android.app.DatePickerDialog
 import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,6 +8,7 @@ import android.util.Log
 import android.view.View
 import android.widget.DatePicker
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
@@ -38,10 +40,10 @@ class AddActivity : AppCompatActivity() {
 
         val id = intent.getIntExtra("id", 0)
 
+        // 수정일 때
         if (id != 0) {
+            // 내용 넣어주기
             val content = intent.getStringExtra("content")
-            val startDate = intent.getStringExtra("startDate")
-
             binding.addEditContent.setText(content, TextView.BufferType.EDITABLE)
 
             binding.addSaveBtn.text = "수정"
@@ -68,12 +70,24 @@ class AddActivity : AppCompatActivity() {
             }
 
             val builder = AlertDialog.Builder(this)
+            val content = binding.addEditContent.text.toString().trim()
             builder.setTitle("${binding.addSaveBtn.text}")
             builder.setMessage("해당 내용을 ${binding.addSaveBtn.text}하시겠습니까?")
             builder.setPositiveButton("예") { dialog, which ->
                 if (binding.addSaveBtn.text.equals("저장")) {
-                    viewModel.createDday(finishDate, binding.addEditContent.text.toString(), startDate, baseContext)
+                    if (content.length == 0 || content.equals("")) {
+                        Toast.makeText(applicationContext, "내용을 입력해주세요!", Toast.LENGTH_SHORT).show()
+                        return@setPositiveButton
+                    } else {
+                        viewModel.createDday(finishDate, content, startDate, baseContext)
+                    }
                 } else {
+                    if (content.length == 0 || content.equals("")) {
+                        Toast.makeText(applicationContext, "내용을 입력해주세요!", Toast.LENGTH_SHORT).show()
+                        return@setPositiveButton
+                    }else {
+                        viewModel.updateDDay(finishDate, binding.addEditContent.text.toString(), startDate, baseContext, id)
+                    }
                     viewModel.updateDDay(finishDate, binding.addEditContent.text.toString(), startDate, baseContext, id)
                 }
             }

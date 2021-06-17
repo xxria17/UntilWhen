@@ -32,6 +32,7 @@ class AddViewModel(application: Application): AndroidViewModel(application) {
             }
 
             override fun onFailure(call: Call<Dday>, t: Throwable) {
+                Toast.makeText(context, "서버에 연결이 되지 않았습니다. 다시 시도해주세요!", Toast.LENGTH_SHORT).show()
                 Log.e("AddViewModel!!!", t.message.toString())
             }
 
@@ -54,6 +55,7 @@ class AddViewModel(application: Application): AndroidViewModel(application) {
             }
 
             override fun onFailure(call: Call<Dday>, t: Throwable) {
+                Toast.makeText(context, "서버에 연결이 되지 않았습니다. 다시 시도해주세요!", Toast.LENGTH_SHORT).show()
                 Log.e("AddViewModel!!!", t.message.toString())
             }
 

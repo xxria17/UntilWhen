@@ -29,6 +29,7 @@
             android:id="@+id/detail_back_btn"
             android:layout_width="20dp"
             android:layout_height="20dp"
+            android:background="?attr/selectableItemBackground"
             app:layout_constraintBottom_toBottomOf="@+id/toolbar2"
             app:layout_constraintEnd_toEndOf="@+id/toolbar2"
             app:layout_constraintHorizontal_bias="0.041"
@@ -46,6 +47,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/toolbar2"
             app:srcCompat="@drawable/menu"
+            android:background="?attr/selectableItemBackground"
             android:contentDescription="@string/menuBtn" />
 
         <TextView

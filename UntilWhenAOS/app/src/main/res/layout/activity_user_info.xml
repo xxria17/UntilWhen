@@ -27,6 +27,7 @@
         android:layout_marginBottom="36dp"
         android:text="회원탈퇴"
         android:textSize="17sp"
+        android:background="?attr/selectableItemBackground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -38,6 +39,7 @@
         android:layout_height="25dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:background="?attr/selectableItemBackground"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/back" />

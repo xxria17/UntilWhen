@@ -49,6 +49,16 @@ class DetailActivity : AppCompatActivity() {
             drawable = DrawableCompat.wrap(drawable)
             DrawableCompat.setTint(drawable, ContextCompat.getColor(this, R.color.pink))
             binding.view5.background = drawable
+        } else if (remain == 0L) {
+            binding.detailDdaySt.text = "오늘은"
+            binding.detailDdayDate.text = "D-Day"
+            binding.detailDdaySt2.text = "입니다!"
+            binding.detailTvHighlight.setBackgroundColor(ContextCompat.getColor(this, R.color.blue))
+            var drawable : Drawable = binding.view5.background
+            drawable = DrawableCompat.wrap(drawable)
+            DrawableCompat.setTint(drawable, ContextCompat.getColor(this, R.color.blue))
+            binding.view5.background = drawable
+            binding.detailDdayDate.setTextColor(ContextCompat.getColor(this, R.color.yellow))
         } else {
             binding.detailDdayDate.text = "${abs(remain)}"
             binding.detailDdayDate.setTextColor(ContextCompat.getColor(this, R.color.sky_blue))

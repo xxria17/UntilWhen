@@ -96,6 +96,7 @@
                     android:text="@string/join"
                     android:textColor="@color/black"
                     android:textSize="16sp"
+                    android:background="?attr/selectableItemBackground"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.919"
