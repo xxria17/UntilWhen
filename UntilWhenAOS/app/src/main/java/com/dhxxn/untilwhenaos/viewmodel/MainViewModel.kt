@@ -27,7 +27,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 dday.content = document.content
                 dday.finishDate = document.finishDate
                 dday.startDate = document.startDate
-                dday.currentRemainDates = document.currentRemainDates
                 dday.totalRemainDates = document.totalRemainDates
 
                 list.add(dday)

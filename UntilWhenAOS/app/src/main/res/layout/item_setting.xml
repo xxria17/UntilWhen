@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/item_setting_img"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/list_background"
+        android:layout_margin="10dp"/>
+
+    <TextView
+        android:id="@+id/item_setting_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="로그인 되어있는 아이디"
+        android:textSize="16sp"
+        android:layout_margin="10dp"
+        android:textColor="@color/black"/>
+
+    <View
+        android:layout_width="100dp"
+        android:layout_height="10dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="id"
+        android:textSize="16sp"
+        android:layout_margin="10dp"
+        android:id="@+id/item_setting_id"/>
+
+</LinearLayout>
