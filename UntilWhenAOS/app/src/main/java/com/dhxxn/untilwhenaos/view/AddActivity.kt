@@ -78,9 +78,6 @@ class AddActivity : AppCompatActivity() {
                     if (content.length == 0 || content.equals("")) {
                         Toast.makeText(applicationContext, "내용을 입력해주세요!", Toast.LENGTH_SHORT).show()
                         return@setPositiveButton
-                    } else if (finishDate < startDate) {
-                        Toast.makeText(applicationContext, "잘못된 날짜입니다! 다시 확인해주세요.", Toast.LENGTH_SHORT).show()
-                        return@setPositiveButton
                     } else {
                         viewModel.createDday(finishDate, content, startDate, baseContext)
                     }
@@ -88,10 +85,7 @@ class AddActivity : AppCompatActivity() {
                     if (content.length == 0 || content.equals("")) {
                         Toast.makeText(applicationContext, "내용을 입력해주세요!", Toast.LENGTH_SHORT).show()
                         return@setPositiveButton
-                    }  else if (finishDate < startDate) {
-                        Toast.makeText(applicationContext, "잘못된 날짜입니다! 다시 확인해주세요.", Toast.LENGTH_SHORT).show()
-                        return@setPositiveButton
-                    } else {
+                    }else {
                         viewModel.updateDDay(finishDate, binding.addEditContent.text.toString(), startDate, baseContext, id)
                     }
                     viewModel.updateDDay(finishDate, binding.addEditContent.text.toString(), startDate, baseContext, id)

@@ -45,10 +45,10 @@ class MainActivity : AppCompatActivity() {
         
 
         setUserId()
-        viewModel.setInit(binding.mainDdayList)
+        viewModel.setInit(binding.mainDdayList, this)
 
         binding.mainSwipeLayout.setOnRefreshListener {
-            viewModel.setInit(binding.mainDdayList)
+            viewModel.setInit(binding.mainDdayList, this)
             binding.mainSwipeLayout.isRefreshing = false
         }
 
