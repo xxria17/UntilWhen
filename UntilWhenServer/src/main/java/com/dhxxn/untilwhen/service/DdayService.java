@@ -42,9 +42,14 @@ public class DdayService {
         Date finishDate = dday.getFinishDate();
 
         long calTotal = startDate.getTime() - finishDate.getTime();
-        long cal = 24*60*60*1000;
+        int cal = 24*60*60*1000;
+        int result = (int) (calTotal / cal);
 
-        dday.setTotalRemainDates((calTotal / cal)+1);
+        if (result != 0) {
+            dday.setTotalRemainDates(result);
+        } else {
+            dday.setTotalRemainDates(result + 1);
+        }
 
         return dday;
     }
