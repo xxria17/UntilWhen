@@ -46,6 +46,7 @@ class UserInfoActivity : AppCompatActivity() {
                     dialog.setMessage("로그아웃 하시겠습니까?")
                     dialog.setPositiveButton("예") {dialog, which ->
                         logout()
+                        Toast.makeText(applicationContext, "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show()
                     }
                     dialog.setNegativeButton("아니오") {dialog, which ->
                         return@setNegativeButton
@@ -84,7 +85,6 @@ class UserInfoActivity : AppCompatActivity() {
         App.prefs.setString("password", "")
         App.prefs.setString("userId", "")
         val intent = Intent(this@UserInfoActivity, LoginActivity::class.java)
-        Toast.makeText(this, "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show()
         startActivity(intent)
         finish()
     }
@@ -95,10 +95,11 @@ class UserInfoActivity : AppCompatActivity() {
         RetrofitBuilder.api.deleteUser(token, id.toInt()).enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 logout()
+                Toast.makeText(applicationContext, "회원탈퇴 되었습니다.", Toast.LENGTH_SHORT).show()
             }
 
             override fun onFailure(call: Call<Void>, t: Throwable) {
-                Log.e("MainActivity!!!", t.message.toString())
+                Log.e("UserInfoActivity!!!", t.message.toString())
             }
 
         })

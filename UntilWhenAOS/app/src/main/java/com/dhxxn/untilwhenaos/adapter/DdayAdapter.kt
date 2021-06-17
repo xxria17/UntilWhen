@@ -24,22 +24,35 @@ class DdayAdapter (private var list : MutableList<Dday>): RecyclerView.Adapter<D
         var progressBar : ProgressBar = itemView!!.findViewById(R.id.item_dday_progressBar)
 
         val format = SimpleDateFormat("yyyy-MM-dd")
-        val today = Date()
+        val today = Date().time
 
         fun bind(data : Dday, context: Context) {
-            val remainData = (today.time - format.parse(data.finishDate).time) / (24*60*60*1000)
+            val todayDate = format.parse(format.format(today)).time
+            val finish = format.parse(data.finishDate).time
+            val remainData = (todayDate - finish) / (24*60*60*1000)
 
-            val total = abs(data.totalRemainDates)
-            val current = total - abs(remainData)
 
-            if (remainData > 0) {
-                remain.text = "+${remainData}"
-                val a = Math.pow(10.0, (remain.text.toString().substring(1).length+1).toDouble()).toInt()
-                progressBar.progress = (100 * a / 10).toInt()
+            if (data.totalRemainDates != 0L) {
+                if (remainData > 0) {
+                    remain.text = "+${remainData}"
+                    val a = Math.pow(10.0, (remain.text.toString().substring(1).length+1).toDouble()).toInt()
+                    progressBar.progress = (100 * a / 10)
+                } else if (remainData < 0) {
+                    val total = abs(data.totalRemainDates)
+                    val current = total - abs(remainData)
+
+                    remain.text = "${remainData}"
+                    progressBar.progress = (100 * current / total).toInt()
+                } else {
+                    remain.text = "${remainData+1}"
+                    progressBar.progress = 100
+                }
             } else {
-                remain.text = "${remainData}"
-                progressBar.progress = (100 * current / total).toInt()
+                remain.text = "D-Day!"
+                progressBar.progress = 100
             }
+
+
             date.text = refactorDate(data.finishDate)
             content.text = data.content
 
